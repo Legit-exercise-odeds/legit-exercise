@@ -8,7 +8,8 @@ router.post('/detect', async (req,res) => {
             console.warn(`We detected suspicious behavior, a team with the name: ${bodyData["team"].name} was created`);
         }
         if (bodyData["repository"]) {
-            console.log(bodyData["repository"])
+            const pushedTimestamp = bodyData["repository"].pushed_at;
+            console.log(pushedTimestamp)
         }
         res.status(200);
     }catch (e) {
