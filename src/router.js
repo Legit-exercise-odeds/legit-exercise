@@ -7,6 +7,9 @@ router.post('/detect', async (req,res) => {
         if (bodyData["team"] && bodyData["action"] === "created" && bodyData["team"].name.startsWith("hacker")) {
             console.warn(`We detected suspicious behavior, a team with the name: ${bodyData["team"].name} was created`);
         }
+        if (bodyData["repository"]) {
+            console.log(bodyData["repository"])
+        }
         res.status(200);
     }catch (e) {
 
