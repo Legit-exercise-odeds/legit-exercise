@@ -12,7 +12,7 @@ router.post('/detect', async (req,res) => {
             const pushDate = new Date(pushTimestamp * 1000);
             const pushHour = pushDate.getHours();
             if (pushHour => 14 && pushHour <= 16) {
-                console.log(pushHour => 14);
+                console.log(pushHour >= 14);
                 console.log(pushHour <=16)
                 console.warn(`We detected suspicious behavior, someone pushed code between 14:00 - 16:00`);
             }
