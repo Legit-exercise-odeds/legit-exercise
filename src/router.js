@@ -12,6 +12,7 @@ router.post('/detect', async (req,res) => {
             const pushDate = new Date(pushTimestamp * 1000);
             const pushHour = pushDate.getHours();
             console.log(pushHour)
+            console.log(typeof pushHour)
         }
         res.status(200);
     }catch (e) {
