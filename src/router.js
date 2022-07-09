@@ -7,14 +7,6 @@ router.post('/detect', async (req,res) => {
         if (bodyData["team"] && bodyData["action"] === "created" && bodyData["team"].name.startsWith("hacker")) {
             console.warn(`We detected suspicious behavior, a team with the name: ${bodyData["team"].name} was created`);
         }
-        if (bodyData["repository"]) {
-            const pushTimestamp = bodyData["repository"].pushed_at;
-            const pushDate = new Date(pushTimestamp * 1000);
-            const pushHour = pushDate.getHours();
-            if (pushHour >= 14 && pushHour <= 16) {
-                console.warn(`We detected suspicious behavior, someone pushed code between 14:00 - 16:00`);
-            }
-        }
         if (bodyData["action"] === "deleted" && bodyData["repository"]) {
             const {created_at, updated_at} = bodyData["repository"];
             const createTimestamp = Date.parse(created_at);
@@ -28,6 +20,16 @@ router.post('/detect', async (req,res) => {
     }catch (e) {
         console.error(`Operation failed with error =>  ${e}`);
         return res.status(500);
-    }})
+    }});
+
+router.post('/pushes', async (req, res) => {
+    const { repository } = req.body;
+    const pushTimestamp = repository.pushed_at;
+    const pushDate = new Date(pushTimestamp * 1000);
+    const pushHour = pushDate.getHours();
+    if (pushHour >= 14 && pushHour <= 16) {
+        console.warn(`We detected suspicious behavior, someone pushed code between 14:00 - 16:00`);
+    }
+})
 
 module.exports = router;

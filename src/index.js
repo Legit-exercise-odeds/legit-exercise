@@ -7,7 +7,7 @@ const main = async () => {
     app.use(bodyParser.urlencoded({ extended: true }));
     // parse application/json
     app.use(bodyParser.json());
-    app.use('/detection', detectionRouter);
+    app.use('/github-detection', detectionRouter);
     app.listen(port, () => console.log(`Server is listening to port ${port}`));
 
 }
