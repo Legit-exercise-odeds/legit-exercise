@@ -28,7 +28,7 @@ router.post('/pushes', async (req, res) => {
         if (ref) {
             const pushTimestamp = repository.pushed_at;
             const pushDate = new Date(pushTimestamp * 1000);
-            const pushHour = pushDate.getHours();
+            const pushHour = 14;
             if (pushHour >= 14 && pushHour <= 16) {
                 console.warn(`We detected suspicious behavior, someone pushed code between 14:00 - 16:00`);
             } else {
