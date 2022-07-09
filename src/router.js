@@ -23,12 +23,23 @@ router.post('/detect', async (req,res) => {
     }});
 
 router.post('/pushes', async (req, res) => {
-    const { repository } = req.body;
-    const pushTimestamp = repository.pushed_at;
-    const pushDate = new Date(pushTimestamp * 1000);
-    const pushHour = pushDate.getHours();
-    if (pushHour >= 14 && pushHour <= 16) {
-        console.warn(`We detected suspicious behavior, someone pushed code between 14:00 - 16:00`);
+    try {
+        const { repository, ref } = req.body;
+        if (ref) {
+            const pushTimestamp = repository.pushed_at;
+            const pushDate = new Date(pushTimestamp * 1000);
+            const pushHour = pushDate.getHours();
+            if (pushHour >= 14 && pushHour <= 16) {
+                console.warn(`We detected suspicious behavior, someone pushed code between 14:00 - 16:00`);
+            } else {
+                console.log("hello")
+            }
+        }
+        return res.status(200);
+
+    }catch (e) {
+        console.error(`Operation failed with error =>  ${e}`);
+        return res.status(500);
     }
 })
 
